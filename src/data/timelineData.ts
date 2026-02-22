@@ -47,9 +47,9 @@ export const timelineData: TimelineData = {
         {
           gradientFrom: '#6B5C42',
           gradientTo: '#3E2E1C',
-          label: 'Hugh Ferriss — Zoning Envelope Study',
-          sublabel: 'Stage 4: The idealized tower — setback formula fully expressed',
-          imageSrc: '/images/phase0/ferriss-stage4.jpg',
+          label: 'The Rejected Design — Pereira & Luckman',
+          sublabel: 'The "Renaissance Modernized" tower that Phyllis Lambert refused',
+          imageSrc: '/images/phase0/pereira-luckman-rejected.jpg',
         },
       ],
     },
