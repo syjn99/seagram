@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Dark background -->
+  <rect width="32" height="32" rx="6" fill="#1A1A1A"/>
+  <!-- Tower body -->
+  <rect x="11" y="3" width="10" height="23" fill="#8B6914"/>
+  <!-- Vertical mullions -->
+  <path d="M13.5 3v23M16 3v23M18.5 3v23" stroke="#1A1A1A" stroke-width="0.6" opacity="0.35"/>
+  <!-- Horizontal spandrels -->
+  <path d="M11 7h10M11 11h10M11 15h10M11 19h10M11 23h10" stroke="#1A1A1A" stroke-width="0.4" opacity="0.25"/>
+  <!-- Plaza -->
+  <rect x="7" y="27" width="18" height="1.5" rx="0.75" fill="#8B6914" opacity="0.25"/>
+</svg>
