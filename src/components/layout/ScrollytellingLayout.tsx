@@ -47,11 +47,7 @@ export function ScrollytellingLayout({ phases }: ScrollytellingLayoutProps) {
           /* Mobile: stacked layout with inline visuals */
           <div>
             {phases.map((phase) => (
-              <TimelineSection
-                key={phase.id}
-                phase={phase}
-                showInlineVisual
-              />
+              <TimelineSection key={phase.id} phase={phase} showInlineVisual />
             ))}
           </div>
         )}

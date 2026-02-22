@@ -30,12 +30,10 @@ export function VisualPlaceholder({ config }: VisualPlaceholderProps) {
         <div className="mb-3 inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium tracking-wider text-white/80 uppercase backdrop-blur-sm">
           Visual Placeholder
         </div>
-        <h3 className="font-display mb-2 text-lg font-semibold leading-snug text-white">
+        <h3 className="font-display mb-2 text-lg leading-snug font-semibold text-white">
           {config.label}
         </h3>
-        <p className="text-sm leading-relaxed text-white/60">
-          {config.sublabel}
-        </p>
+        <p className="text-sm leading-relaxed text-white/60">{config.sublabel}</p>
       </div>
 
       {/* Corner accents */}

@@ -21,11 +21,7 @@ export function ProgressBar() {
 
   return (
     <div className="fixed top-0 left-0 z-50 h-[3px] w-full">
-      <div
-        ref={barRef}
-        className="h-full w-0 bg-seagram-bronze"
-        style={{ willChange: 'width' }}
-      />
+      <div ref={barRef} className="bg-seagram-bronze h-full w-0" style={{ willChange: 'width' }} />
     </div>
   );
 }

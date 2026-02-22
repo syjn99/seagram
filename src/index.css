@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --color-seagram-bronze: #8B6914;
-  --color-seagram-bronze-dark: #5C4710;
-  --color-seagram-bronze-light: #C8956E;
-  --color-seagram-charcoal: #2A2A2A;
-  --color-seagram-granite: #D4C5A9;
-  --color-seagram-cream: #F5F0E8;
-  --color-seagram-ink: #1A1A1A;
+  --color-seagram-bronze: #8b6914;
+  --color-seagram-bronze-dark: #5c4710;
+  --color-seagram-bronze-light: #c8956e;
+  --color-seagram-charcoal: #2a2a2a;
+  --color-seagram-granite: #d4c5a9;
+  --color-seagram-cream: #f5f0e8;
+  --color-seagram-ink: #1a1a1a;
 
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;

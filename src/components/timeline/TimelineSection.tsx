@@ -25,14 +25,14 @@ export const TimelineSection = forwardRef<HTMLElement, TimelineSectionProps>(
 
         {/* Date range badge */}
         <FadeInSection>
-          <span className="mb-4 inline-block font-mono text-sm font-medium tracking-widest text-seagram-bronze uppercase">
+          <span className="text-seagram-bronze mb-4 inline-block font-mono text-sm font-medium tracking-widest uppercase">
             {phase.dateRange}
           </span>
         </FadeInSection>
 
         {/* Phase title */}
         <FadeInSection delay={0.1}>
-          <h2 className="font-display mb-8 text-3xl font-bold leading-tight text-seagram-ink lg:text-4xl xl:text-5xl">
+          <h2 className="font-display text-seagram-ink mb-8 text-3xl leading-tight font-bold lg:text-4xl xl:text-5xl">
             {phase.title}
           </h2>
         </FadeInSection>
@@ -40,7 +40,7 @@ export const TimelineSection = forwardRef<HTMLElement, TimelineSectionProps>(
         {/* Paragraphs */}
         {phase.paragraphs.map((paragraph, i) => (
           <FadeInSection key={i} delay={0.15 + i * 0.08}>
-            <p className="mb-6 max-w-prose text-base leading-relaxed text-seagram-ink/80 lg:text-lg lg:leading-relaxed">
+            <p className="text-seagram-ink/80 mb-6 max-w-prose text-base leading-relaxed lg:text-lg lg:leading-relaxed">
               {paragraph}
             </p>
           </FadeInSection>
@@ -49,11 +49,11 @@ export const TimelineSection = forwardRef<HTMLElement, TimelineSectionProps>(
         {/* Pull quote */}
         {phase.pullQuote && (
           <FadeInSection delay={0.3} className="my-10">
-            <blockquote className="border-l-4 border-seagram-bronze pl-6 lg:pl-8">
-              <p className="font-display text-2xl font-bold leading-tight text-seagram-ink italic lg:text-3xl xl:text-4xl">
+            <blockquote className="border-seagram-bronze border-l-4 pl-6 lg:pl-8">
+              <p className="font-display text-seagram-ink text-2xl leading-tight font-bold italic lg:text-3xl xl:text-4xl">
                 {phase.pullQuote.text}
               </p>
-              <cite className="mt-4 block text-sm font-normal tracking-wide text-seagram-ink/50 not-italic">
+              <cite className="text-seagram-ink/50 mt-4 block text-sm font-normal tracking-wide not-italic">
                 — {phase.pullQuote.attribution}
               </cite>
             </blockquote>

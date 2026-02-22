@@ -7,7 +7,7 @@ interface HeaderProps {
 
 export function Header({ metadata }: HeaderProps) {
   return (
-    <header className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-seagram-charcoal px-6 text-center">
+    <header className="bg-seagram-charcoal relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
       {/* Background gradient accent */}
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
@@ -23,7 +23,7 @@ export function Header({ metadata }: HeaderProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6 font-mono text-xs font-medium tracking-[0.3em] text-seagram-bronze-light uppercase"
+          className="text-seagram-bronze-light mb-6 font-mono text-xs font-medium tracking-[0.3em] uppercase"
         >
           375 Park Avenue, New York
         </motion.p>
@@ -33,7 +33,7 @@ export function Header({ metadata }: HeaderProps) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display mb-6 text-5xl font-bold leading-[1.1] text-white md:text-6xl lg:text-7xl"
+          className="font-display mb-6 text-5xl leading-[1.1] font-bold text-white md:text-6xl lg:text-7xl"
         >
           {metadata.siteTitle}
         </motion.h1>
@@ -43,7 +43,7 @@ export function Header({ metadata }: HeaderProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display mb-8 text-xl text-seagram-granite italic md:text-2xl"
+          className="font-display text-seagram-granite mb-8 text-xl italic md:text-2xl"
         >
           {metadata.siteSubtitle}
         </motion.p>
@@ -53,7 +53,7 @@ export function Header({ metadata }: HeaderProps) {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 1, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mb-8 h-px w-24 bg-seagram-bronze origin-center"
+          className="bg-seagram-bronze mx-auto mb-8 h-px w-24 origin-center"
         />
 
         {/* Intro text */}

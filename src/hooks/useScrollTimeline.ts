@@ -36,9 +36,7 @@ export function useScrollTimeline({
     () => {
       if (!containerRef.current) return;
 
-      const sections = containerRef.current.querySelectorAll<HTMLElement>(
-        '[data-phase-index]',
-      );
+      const sections = containerRef.current.querySelectorAll<HTMLElement>('[data-phase-index]');
 
       if (sections.length === 0) return;
 

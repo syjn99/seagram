@@ -20,7 +20,7 @@ export function TimelineNav({ phases, activePhaseIndex }: TimelineNavProps) {
       aria-label="Timeline navigation"
     >
       {/* Connecting line */}
-      <div className="absolute top-3 right-[5px] bottom-3 w-px bg-seagram-ink/10" />
+      <div className="bg-seagram-ink/10 absolute top-3 right-[5px] bottom-3 w-px" />
 
       {phases.map((phase, index) => (
         <TimelineNavDot
