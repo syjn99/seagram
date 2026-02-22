@@ -175,34 +175,34 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
       </div>
 
       {/* Right: text content */}
-      <div className="flex flex-col justify-center overflow-hidden px-8 py-8 lg:px-12">
+      <div className="flex flex-col justify-center overflow-hidden px-8 py-[clamp(1rem,3vh,2rem)] lg:px-12">
         <FadeInSection>
-          <span className="text-seagram-bronze mb-4 inline-block font-mono text-sm font-medium tracking-widest uppercase">
+          <span className="text-seagram-bronze mb-[clamp(0.5rem,1.5vh,1rem)] inline-block font-mono text-[clamp(0.75rem,1.4vh,0.875rem)] font-medium tracking-widest uppercase">
             {phase.dateRange}
           </span>
         </FadeInSection>
 
         <FadeInSection delay={0.1}>
-          <h2 className="font-display text-seagram-ink mb-8 text-3xl leading-tight font-bold lg:text-4xl xl:text-5xl">
+          <h2 className="font-display text-seagram-ink mb-[clamp(1rem,3vh,2rem)] text-[clamp(1.75rem,4.5vh,3rem)] leading-tight font-bold">
             {phase.title}
           </h2>
         </FadeInSection>
 
         {phase.paragraphs.map((p, i) => (
           <FadeInSection key={i} delay={0.15 + i * 0.08}>
-            <p className="text-seagram-ink/80 mb-6 max-w-prose text-base leading-relaxed lg:text-lg lg:leading-relaxed">
+            <p className="text-seagram-ink/80 mb-[clamp(0.75rem,2vh,1.5rem)] max-w-prose text-[clamp(0.875rem,1.8vh,1.125rem)] leading-relaxed">
               {p}
             </p>
           </FadeInSection>
         ))}
 
         {phase.pullQuote && (
-          <FadeInSection delay={0.3} className="my-10">
+          <FadeInSection delay={0.3} className="my-[clamp(1rem,3vh,2.5rem)]">
             <blockquote className="border-seagram-bronze border-l-4 pl-6 lg:pl-8">
-              <p className="font-display text-seagram-ink text-2xl leading-tight font-bold italic lg:text-3xl xl:text-4xl">
+              <p className="font-display text-seagram-ink text-[clamp(1.25rem,3vh,2.25rem)] leading-tight font-bold italic">
                 {phase.pullQuote.text}
               </p>
-              <cite className="text-seagram-ink/50 mt-4 block text-sm font-normal tracking-wide not-italic">
+              <cite className="text-seagram-ink/50 mt-[clamp(0.5rem,1.5vh,1rem)] block text-[clamp(0.75rem,1.3vh,0.875rem)] font-normal tracking-wide not-italic">
                 — {phase.pullQuote.attribution}
               </cite>
             </blockquote>
