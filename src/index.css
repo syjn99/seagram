@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-seagram-bronze: #8B6914;
+  --color-seagram-bronze-dark: #5C4710;
+  --color-seagram-bronze-light: #C8956E;
+  --color-seagram-charcoal: #2A2A2A;
+  --color-seagram-granite: #D4C5A9;
+  --color-seagram-cream: #F5F0E8;
+  --color-seagram-ink: #1A1A1A;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+    color: var(--color-seagram-ink);
+    background-color: var(--color-seagram-cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  ::selection {
+    background-color: var(--color-seagram-bronze);
+    color: white;
+  }
+}
