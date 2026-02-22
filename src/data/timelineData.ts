@@ -164,8 +164,8 @@ export const timelineData: TimelineData = {
         {
           gradientFrom: '#3A3A3A',
           gradientTo: '#151515',
-          label: 'The Tower at Night',
-          sublabel: 'Park Avenue perspective — the glowing grid against darkness',
+          label: 'Lever House at Night',
+          sublabel: 'Along with Lever House, Manhattan now boasts countless curtain-wall towers',
           imageSrc: '/images/phase3/tower-night-parkave.jpeg',
         },
         {
