@@ -8,9 +8,9 @@ interface TimelineNavProps {
 
 export function TimelineNav({ phases, activePhaseIndex }: TimelineNavProps) {
   const scrollToPhase = (index: number) => {
-    const section = document.querySelector(`[data-phase-index="${index}"]`);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const gallery = document.querySelector(`[data-phase-gallery="${index}"]`);
+    if (gallery) {
+      gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 

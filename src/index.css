@@ -15,7 +15,6 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     font-family: var(--font-body);
     color: var(--color-seagram-ink);
     background-color: var(--color-seagram-cream);

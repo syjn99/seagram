@@ -1,26 +1,33 @@
 # Seagram Building — Scrollytelling Timeline
 
-Interactive chronological timeline presenting the architectural history of the Seagram Building (375 Park Avenue, NYC). The site uses a "scrollytelling" pattern where a sticky visual panel crossfades between representations as the user scrolls through narrative text blocks.
+Interactive chronological timeline presenting the architectural history of the Seagram Building (375 Park Avenue, NYC). The site uses a "scrollytelling" pattern where full-viewport pinned galleries cycle through images as the user scrolls, then release into narrative text blocks.
 
 ## Tech Stack
 
 - **Vite + React 18 + TypeScript** — project scaffold
 - **Tailwind CSS v4** — styling via `@tailwindcss/vite` plugin (CSS-first config in `@theme` blocks, no `tailwind.config.js`)
-- **GSAP + ScrollTrigger** (`gsap`, `@gsap/react`) — scroll-driven phase detection and progress tracking
+- **GSAP + ScrollTrigger** (`gsap`, `@gsap/react`) — scroll-driven pinned galleries with image cycling
 - **Motion** (`motion/react`) — component crossfades and entrance animations
 
 ## Architecture
 
 ### Layout Pattern
 
-Desktop (`lg:+`): two-column grid. Left column is the sticky visual panel (`position: sticky`, CSS-native). Right column contains scrollable `TimelineSection` blocks (~100vh each). GSAP ScrollTrigger observes scroll position to determine the active phase — it does **not** handle pinning (CSS sticky does that).
+The page alternates between **pinned gallery sections** and **text sections** for each of the four phases:
 
-Mobile (`< lg`): single stacked column. Each phase renders its own visual inline above its text. GSAP pinning is disabled; visuals use Motion's `whileInView` instead.
+```
+Header → Gallery 0 (pinned) → Text 0 → Gallery 1 (pinned) → Text 1 → … → Footer
+```
+
+Desktop (`lg:+`): Each gallery is a full-viewport section pinned by GSAP ScrollTrigger. Scroll input cycles through 3 images per phase (with `AnimatePresence` crossfade). Once all images are shown, the pin releases and the text section scrolls normally. Text sections are centered (`max-w-3xl`).
+
+Mobile (`< lg`): No pinning. Gallery images are stacked vertically inline with Motion `whileInView` fade-in animations, followed by the text section.
 
 ### Scroll State Management
 
-- `activePhaseIndex` (discrete, changes ~3 times) — React state, triggers visual crossfade via `AnimatePresence`
-- `scrollProgress` (continuous, every frame) — stored in a `ref`, applied directly to DOM (progress bar width), bypasses React re-renders
+- `activePhaseIndex` (discrete) — React state in `ScrollytellingLayout`, updated by `PinnedGallery.onPhaseEnter` callbacks and text-section ScrollTrigger observers. Drives `TimelineNav` dot highlighting.
+- `visualSubIndex` (discrete) — React state local to each `PinnedGallery`, computed from ScrollTrigger `onUpdate` progress. Only updates when the image index actually changes (ref guard).
+- `scrollProgress` (continuous, every frame) — `ProgressBar` has its own global ScrollTrigger applied directly to DOM, bypasses React re-renders.
 
 ### Content Data Flow
 
@@ -33,7 +40,7 @@ All content lives in `src/data/timelineData.ts` as a typed `TimelineData` object
 
 ### Visual System
 
-Visual placeholders are gradient boxes with descriptive labels (real images to be added later). Phase 0 has a `visualSequence` array for a mid-phase sub-transition (zoning diagram → rejected P&L model), driven by scroll progress within that phase.
+Each phase has a `visualSequence` array of 3 `VisualConfig` objects, each with an `imageSrc` path pointing to optimized images in `public/images/`. The `VisualPlaceholder` component renders either a real `<img>` with caption overlay (when `imageSrc` is present) or falls back to a gradient placeholder with descriptive labels.
 
 ## Key Directories
 
@@ -41,12 +48,12 @@ Visual placeholders are gradient boxes with descriptive labels (real images to b
 src/
   data/          — timeline content and metadata
   types/         — TypeScript interfaces (Phase, VisualConfig, TimelineData)
-  hooks/         — useScrollTimeline (GSAP), useMediaQuery
+  hooks/         — useMediaQuery
   utils/         — gsapSetup (plugin registration), constants
   components/
     layout/      — ScrollytellingLayout (core orchestrator), Header, Footer
     timeline/    — TimelineSection, TimelineNav, TimelineNavDot
-    visuals/     — VisualPanel (crossfade manager), VisualPlaceholder
+    visuals/     — PinnedGallery (GSAP pin + image cycling), VisualPanel (crossfade manager), VisualPlaceholder, GalleryProgress
     ui/          — FadeInSection, ProgressBar
 ```
 

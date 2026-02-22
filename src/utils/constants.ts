@@ -3,3 +3,6 @@ export const BREAKPOINT_LG = 1024;
 export const PHASE_TRANSITION_DURATION = 0.8;
 
 export const PHASE_TRANSITION_EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Scroll distance (in viewport heights) per image in a pinned gallery */
+export const GALLERY_SCROLL_PER_IMAGE_VH = 0.8;

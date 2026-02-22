@@ -75,7 +75,7 @@ export const timelineData: TimelineData = {
           gradientFrom: '#D4C5A9',
           gradientTo: '#6B5B3E',
           label: 'Perspective Sketch, Plaza (MR5411.2)',
-          sublabel: "Mies van der Rohe — pencil on note paper, 11¾ × 9″",
+          sublabel: 'Mies van der Rohe — pencil on note paper, 11¾ × 9″',
           imageSrc: '/images/phase1/mies-plaza-perspective.jpg',
         },
         {
@@ -130,7 +130,8 @@ export const timelineData: TimelineData = {
           gradientFrom: '#A87540',
           gradientTo: '#0F0800',
           label: 'The Tower & The Racquet Club',
-          sublabel: 'Mies\'s monolith against its low-rise neighbor — the contrast that defined "plaza"',
+          sublabel:
+            'Mies\'s monolith against its low-rise neighbor — the contrast that defined "plaza"',
           imageSrc: '/images/phase2/racquet-club-contrast.jpeg',
         },
       ],
