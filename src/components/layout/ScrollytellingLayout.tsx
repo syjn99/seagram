@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { PinnedGallery } from '../visuals/PinnedGallery';
 import { TimelineNav } from '../timeline/TimelineNav';
+import { MobileTimelineBar } from '../timeline/MobileTimelineBar';
 import type { Phase } from '../../types/timeline';
 
 interface ScrollytellingLayoutProps {
@@ -16,6 +17,7 @@ export function ScrollytellingLayout({ phases }: ScrollytellingLayoutProps) {
   return (
     <>
       <TimelineNav phases={phases} activePhaseIndex={activePhaseIndex} />
+      <MobileTimelineBar phases={phases} activePhaseIndex={activePhaseIndex} />
 
       <div ref={containerRef} className="relative">
         {phases.map((phase) => (

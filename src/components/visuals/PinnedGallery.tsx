@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from '../../utils/gsapSetup';
 import { GALLERY_SCROLL_PER_IMAGE_VH } from '../../utils/constants';
@@ -54,22 +54,91 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
     },
   );
 
-  // Mobile: stacked images + text
+  // Mobile: track active phase via IntersectionObserver
+  useEffect(() => {
+    if (isDesktop || !pinRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            onPhaseEnter(phaseIndex);
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(pinRef.current);
+    return () => observer.disconnect();
+  }, [isDesktop, phaseIndex, onPhaseEnter]);
+
+  // Mobile: single image card with tap-to-cycle + text below
   if (!isDesktop) {
+    const goToImage = (i: number) => {
+      currentIndexRef.current = i;
+      setImageIndex(i);
+    };
+
     return (
-      <div data-phase-index={phaseIndex} data-phase-gallery={phaseIndex}>
-        {images.map((visual, i) => (
-          <FadeInSection key={i} className="aspect-[4/3] w-full">
-            <VisualPlaceholder config={visual} onImageClick={() => openByPhase(phaseIndex, i)} />
-          </FadeInSection>
-        ))}
-        <div className="px-6 py-24">
-          <span className="text-seagram-bronze mb-4 inline-block font-mono text-sm font-medium tracking-widest uppercase">
-            {phase.dateRange}
-          </span>
-          <h2 className="font-display text-seagram-ink mb-8 text-3xl leading-tight font-bold">
-            {phase.title}
-          </h2>
+      <div ref={pinRef} data-phase-index={phaseIndex} data-phase-gallery={phaseIndex}>
+        {/* Image card with overlaid title */}
+        <div className="relative h-[40vh] w-full overflow-hidden">
+          <VisualPlaceholder
+            config={images[imageIndex]}
+            onImageClick={() => openByPhase(phaseIndex, imageIndex)}
+            hideCaption
+          />
+
+          {/* Tap zones: left/right to cycle images */}
+          {imageCount > 1 && (
+            <>
+              <button
+                className="absolute top-0 left-0 z-10 h-full w-1/3"
+                onClick={() => goToImage((imageIndex - 1 + imageCount) % imageCount)}
+                aria-label="Previous image"
+              />
+              <button
+                className="absolute top-0 right-0 z-10 h-full w-1/3"
+                onClick={() => goToImage((imageIndex + 1) % imageCount)}
+                aria-label="Next image"
+              />
+            </>
+          )}
+
+          {/* Title overlay at bottom of image */}
+          <div className="pointer-events-none absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/80 via-black/40 to-transparent px-6 pt-16 pb-5">
+            <span className="mb-1 inline-block font-mono text-xs font-medium tracking-widest text-white/60 uppercase">
+              {phase.dateRange}
+            </span>
+            <h2 className="font-display text-2xl leading-tight font-bold text-white">
+              {phase.title}
+            </h2>
+          </div>
+        </div>
+
+        {/* Image dots below image */}
+        {imageCount > 1 && (
+          <div className="flex items-center justify-center gap-3 py-3">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goToImage(i)}
+                className="flex h-8 items-center justify-center px-1"
+                aria-label={`View image ${i + 1} of ${imageCount}`}
+              >
+                <div
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === imageIndex ? 'bg-seagram-bronze w-6' : 'bg-seagram-ink/20 w-1.5'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Text content */}
+        <div className="px-6 pb-8">
           {phase.paragraphs.map((p, i) => (
             <p key={i} className="text-seagram-ink/80 mb-6 max-w-prose text-base leading-relaxed">
               {p}

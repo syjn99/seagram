@@ -83,70 +83,73 @@ export function ImageLightbox() {
             }}
           />
 
-          {/* Top bar: counter + close */}
-          <div className="absolute top-0 right-0 left-0 z-10 flex items-center justify-between px-6 py-4">
-            <LightboxCounter
-              currentImage={currentImage}
-              totalImages={images.length}
-            />
-            <button
-              onClick={close}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/80 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-seagram-bronze"
-              aria-label="Close lightbox"
+          {/* Grid layout: top bar / image / caption — keeps image truly centered */}
+          <div className="relative z-10 grid h-full w-full grid-rows-[auto_1fr_auto]">
+            {/* Top bar: counter + close */}
+            <div className="flex items-center justify-between px-6 py-4">
+              <LightboxCounter
+                currentImage={currentImage}
+                totalImages={images.length}
+              />
+              <button
+                onClick={close}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/80 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-seagram-bronze"
+                aria-label="Close lightbox"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <line x1="4" y1="4" x2="16" y2="16" />
+                  <line x1="16" y1="4" x2="4" y2="16" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Image container with zoom/pan */}
+            <div
+              ref={zoomContainerRef}
+              className="relative flex min-h-0 w-full touch-none items-center justify-center px-4 sm:px-16"
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <line x1="4" y1="4" x2="16" y2="16" />
-                <line x1="16" y1="4" x2="4" y2="16" />
-              </svg>
-            </button>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: PHASE_TRANSITION_EASE }}
+                  className="relative cursor-zoom-in"
+                  style={{
+                    scale: smoothScale,
+                    x: smoothX,
+                    y: smoothY,
+                  }}
+                  drag
+                  dragConstraints={getDragConstraints()}
+                  dragElastic={0.1}
+                  dragMomentum={false}
+                  onPointerDown={handleClick}
+                >
+                  <img
+                    src={currentImage.config.imageSrc}
+                    alt={currentImage.config.label}
+                    className="max-h-[calc(100vh-120px)] max-w-[90vw] select-none rounded object-contain sm:max-w-[85vw]"
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Bottom caption */}
+            <LightboxCaption image={currentImage} />
           </div>
 
-          {/* Navigation arrows */}
+          {/* Navigation arrows (overlay, outside grid) */}
           <LightboxControls onPrev={prev} onNext={next} />
-
-          {/* Image container with zoom/pan */}
-          <div
-            ref={zoomContainerRef}
-            className="relative z-[1] flex h-full w-full touch-none items-center justify-center px-16 py-20"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: PHASE_TRANSITION_EASE }}
-                className="relative max-h-full max-w-full cursor-zoom-in"
-                style={{
-                  scale: smoothScale,
-                  x: smoothX,
-                  y: smoothY,
-                }}
-                drag
-                dragConstraints={getDragConstraints()}
-                dragElastic={0.1}
-                dragMomentum={false}
-                onPointerDown={handleClick}
-              >
-                <img
-                  src={currentImage.config.imageSrc}
-                  alt={currentImage.config.label}
-                  className="max-h-[80vh] max-w-[85vw] select-none rounded object-contain"
-                  draggable={false}
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Bottom caption */}
-          <LightboxCaption image={currentImage} />
         </motion.div>
       )}
     </AnimatePresence>

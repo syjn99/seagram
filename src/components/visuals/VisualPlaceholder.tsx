@@ -4,9 +4,10 @@ import type { VisualConfig } from '../../types/timeline';
 interface VisualPlaceholderProps {
   config: VisualConfig;
   onImageClick?: () => void;
+  hideCaption?: boolean;
 }
 
-export function VisualPlaceholder({ config, onImageClick }: VisualPlaceholderProps) {
+export function VisualPlaceholder({ config, onImageClick, hideCaption }: VisualPlaceholderProps) {
   const hasImage = !!config.imageSrc;
   const isClickable = hasImage && !!onImageClick;
 
@@ -52,8 +53,8 @@ export function VisualPlaceholder({ config, onImageClick }: VisualPlaceholderPro
         }}
       />
 
-      {/* Caption overlay — only when image is present */}
-      {hasImage && (
+      {/* Caption overlay — only when image is present and not suppressed */}
+      {hasImage && !hideCaption && (
         <div className="absolute right-0 bottom-0 left-0 bg-linear-to-t from-black/70 to-transparent px-5 pt-10 pb-5">
           <p className="font-display text-sm leading-snug font-semibold text-white/90">
             {config.label}

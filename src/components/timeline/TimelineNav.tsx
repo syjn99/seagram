@@ -1,4 +1,5 @@
 import { TimelineNavDot } from './TimelineNavDot';
+import { scrollToPhase } from '../../utils/scrollToPhase';
 import type { Phase } from '../../types/timeline';
 
 interface TimelineNavProps {
@@ -7,13 +8,6 @@ interface TimelineNavProps {
 }
 
 export function TimelineNav({ phases, activePhaseIndex }: TimelineNavProps) {
-  const scrollToPhase = (index: number) => {
-    const gallery = document.querySelector(`[data-phase-gallery="${index}"]`);
-    if (gallery) {
-      gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <nav
       className="fixed top-1/2 right-6 z-40 hidden -translate-y-1/2 flex-col items-end lg:flex"

@@ -12,7 +12,7 @@ export function LightboxCaption({ image }: LightboxCaptionProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.15, ease: PHASE_TRANSITION_EASE }}
-      className="absolute right-0 bottom-0 left-0 z-10 bg-gradient-to-t from-black/60 to-transparent px-6 pt-16 pb-6"
+      className="px-6 py-4"
     >
       <div className="mx-auto max-w-2xl text-center">
         <p className="font-display text-sm leading-snug font-semibold text-white/90 sm:text-base">
