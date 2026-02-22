@@ -40,9 +40,9 @@ export const timelineData: TimelineData = {
         {
           gradientFrom: '#7A6B50',
           gradientTo: '#352618',
-          label: 'Hugh Ferriss — Zoning Envelope Study',
-          sublabel: 'Stage 2: The sculpted "wedding cake" massing takes form',
-          imageSrc: '/images/phase0/ferriss-stage2.jpg',
+          label: '120 Wall Street (1930)',
+          sublabel: 'The "wedding cake" setback formula built — Ely Jacques Kahn, architect',
+          imageSrc: '/images/phase0/120-wall-street.jpg',
         },
         {
           gradientFrom: '#6B5C42',
