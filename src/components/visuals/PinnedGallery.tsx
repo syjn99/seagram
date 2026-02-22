@@ -88,6 +88,7 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
             config={images[imageIndex]}
             onImageClick={() => openByPhase(phaseIndex, imageIndex)}
             hideCaption
+            priority={phaseIndex === 0 && imageIndex === 0}
           />
 
           {/* Tap zones: left/right to cycle images */}
@@ -169,7 +170,7 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
     >
       {/* Left: visual panel */}
       <div className="bg-seagram-charcoal relative">
-        <VisualPanel phase={phase} visualSubIndex={imageIndex} onImageClick={(subIndex) => openByPhase(phaseIndex, subIndex)} />
+        <VisualPanel phase={phase} visualSubIndex={imageIndex} onImageClick={(subIndex) => openByPhase(phaseIndex, subIndex)} priority={phaseIndex === 0} />
         <GalleryProgress current={imageIndex} total={imageCount} />
       </div>
 

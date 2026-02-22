@@ -5,9 +5,20 @@ interface VisualPlaceholderProps {
   config: VisualConfig;
   onImageClick?: () => void;
   hideCaption?: boolean;
+  /** When true, loads eagerly with high fetch priority (use for first visible image) */
+  priority?: boolean;
 }
 
-export function VisualPlaceholder({ config, onImageClick, hideCaption }: VisualPlaceholderProps) {
+/** Derive responsive WebP source paths from the original JPEG path */
+function getResponsiveSources(imageSrc: string) {
+  const base = imageSrc.replace(/\.(jpe?g|png)$/, '');
+  return {
+    srcSet: `${base}-640w.webp 640w, ${base}-1024w.webp 1024w, ${base}.webp 1920w`,
+    sizes: '(min-width: 1024px) 45vw, 100vw',
+  };
+}
+
+export function VisualPlaceholder({ config, onImageClick, hideCaption, priority }: VisualPlaceholderProps) {
   const hasImage = !!config.imageSrc;
   const isClickable = hasImage && !!onImageClick;
 
@@ -37,13 +48,21 @@ export function VisualPlaceholder({ config, onImageClick, hideCaption }: VisualP
       }
     >
       {/* Real image layer */}
-      {hasImage && (
-        <img
-          src={config.imageSrc}
-          alt={config.label}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      )}
+      {hasImage && (() => {
+        const { srcSet, sizes } = getResponsiveSources(config.imageSrc!);
+        return (
+          <picture>
+            <source type="image/webp" srcSet={srcSet} sizes={sizes} />
+            <img
+              src={config.imageSrc}
+              alt={config.label}
+              loading={priority ? 'eager' : 'lazy'}
+              fetchPriority={priority ? 'high' : 'auto'}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </picture>
+        );
+      })()}
 
       {/* Subtle grain overlay */}
       <div

@@ -14,9 +14,12 @@ export function Header({ metadata }: HeaderProps) {
         muted
         loop
         playsInline
+        preload="none"
+        poster="/images/hero/poster.jpg"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/images/hero/ambient-loop.mp4" type="video/mp4" />
+        <source src="/images/hero/ambient-loop.webm" type="video/webm" />
+        <source src="/images/hero/ambient-loop-opt.mp4" type="video/mp4" />
       </video>
 
       {/* Dark overlay for text legibility */}

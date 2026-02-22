@@ -6,9 +6,10 @@ interface VisualPanelProps {
   phase: Phase;
   visualSubIndex: number;
   onImageClick?: (subIndex: number) => void;
+  priority?: boolean;
 }
 
-export function VisualPanel({ phase, visualSubIndex, onImageClick }: VisualPanelProps) {
+export function VisualPanel({ phase, visualSubIndex, onImageClick, priority }: VisualPanelProps) {
   const images = phase.visualSequence ?? [phase.visual];
   const clampedIndex = Math.min(visualSubIndex, images.length - 1);
   const currentVisual = images[clampedIndex];
@@ -21,6 +22,7 @@ export function VisualPanel({ phase, visualSubIndex, onImageClick }: VisualPanel
           key={visualKey}
           config={currentVisual}
           onImageClick={onImageClick ? () => onImageClick(clampedIndex) : undefined}
+          priority={priority && clampedIndex === 0}
         />
       </AnimatePresence>
     </div>
