@@ -151,7 +151,7 @@ export const timelineData: TimelineData = {
         gradientTo: '#1A1A1A',
         label: 'Bronze & Travertine Detail',
         sublabel: 'Weathered to charcoal gray — decades of pollution vs. intended patina',
-        imageSrc: '/images/phase3/bronze-travertine-detail.jpeg',
+        imageSrc: '/images/phase3/lobby-375-columns.jpeg',
       },
       visualSequence: [
         {
@@ -159,7 +159,7 @@ export const timelineData: TimelineData = {
           gradientTo: '#1A1A1A',
           label: 'Bronze & Travertine Detail',
           sublabel: 'The weathered patina up close — charcoal gray over original amber',
-          imageSrc: '/images/phase3/bronze-travertine-detail.jpeg',
+          imageSrc: '/images/phase3/lobby-375-columns.jpeg',
         },
         {
           gradientFrom: '#3A3A3A',
