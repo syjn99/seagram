@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+
 interface TimelineNavDotProps {
   phase: { id: string; title: string; dateRange: string };
   isActive: boolean;
@@ -5,6 +7,23 @@ interface TimelineNavDotProps {
 }
 
 export function TimelineNavDot({ phase, isActive, onClick }: TimelineNavDotProps) {
+  const [showLabel, setShowLabel] = useState(false);
+  const hideTimeout = useRef(0);
+
+  useEffect(() => {
+    if (isActive) {
+      setShowLabel(true);
+      clearTimeout(hideTimeout.current);
+      hideTimeout.current = window.setTimeout(() => {
+        setShowLabel(false);
+      }, 2000);
+    } else {
+      setShowLabel(false);
+      clearTimeout(hideTimeout.current);
+    }
+    return () => clearTimeout(hideTimeout.current);
+  }, [isActive]);
+
   return (
     <button
       onClick={onClick}
@@ -20,10 +39,10 @@ export function TimelineNavDot({ phase, isActive, onClick }: TimelineNavDotProps
         }`}
       />
 
-      {/* Label (visible on hover or when active) */}
+      {/* Label (briefly visible on phase enter, always on hover) */}
       <div
         className={`bg-seagram-charcoal pointer-events-none absolute right-6 rounded px-3 py-1.5 text-xs whitespace-nowrap text-white shadow-lg transition-all duration-200 ${
-          isActive
+          showLabel
             ? 'translate-x-0 opacity-100'
             : 'translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
         }`}
