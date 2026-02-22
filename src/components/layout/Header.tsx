@@ -8,9 +8,23 @@ interface HeaderProps {
 export function Header({ metadata }: HeaderProps) {
   return (
     <header className="bg-seagram-charcoal relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
-      {/* Background gradient accent */}
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/images/hero/ambient-loop.mov" type="video/mp4" />
+      </video>
+
+      {/* Dark overlay for text legibility */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      {/* Bronze radial glow */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-20"
         style={{
           background:
             'radial-gradient(ellipse at 50% 40%, rgba(139, 105, 20, 0.4) 0%, transparent 70%)',

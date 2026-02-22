@@ -3,6 +3,7 @@ export interface VisualConfig {
   gradientTo: string;
   label: string;
   sublabel: string;
+  imageSrc?: string;
 }
 
 export interface Phase {
