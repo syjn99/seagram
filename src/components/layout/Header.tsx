@@ -16,7 +16,7 @@ export function Header({ metadata }: HeaderProps) {
         playsInline
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/images/hero/ambient-loop.mov" type="video/mp4" />
+        <source src="/images/hero/ambient-loop.mp4" type="video/mp4" />
       </video>
 
       {/* Dark overlay for text legibility */}
