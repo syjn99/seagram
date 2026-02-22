@@ -3,10 +3,12 @@ import type { VisualConfig } from '../../types/timeline';
 
 interface VisualPlaceholderProps {
   config: VisualConfig;
+  onImageClick?: () => void;
 }
 
-export function VisualPlaceholder({ config }: VisualPlaceholderProps) {
+export function VisualPlaceholder({ config, onImageClick }: VisualPlaceholderProps) {
   const hasImage = !!config.imageSrc;
+  const isClickable = hasImage && !!onImageClick;
 
   return (
     <motion.div
@@ -14,10 +16,24 @@ export function VisualPlaceholder({ config }: VisualPlaceholderProps) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg"
+      className={`relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg ${isClickable ? 'cursor-zoom-in' : ''}`}
       style={{
         background: `linear-gradient(to bottom, ${config.gradientFrom}, ${config.gradientTo})`,
       }}
+      onClick={isClickable ? onImageClick : undefined}
+      role={isClickable ? 'button' : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      aria-label={isClickable ? `View full size: ${config.label}` : undefined}
+      onKeyDown={
+        isClickable
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onImageClick();
+              }
+            }
+          : undefined
+      }
     >
       {/* Real image layer */}
       {hasImage && (

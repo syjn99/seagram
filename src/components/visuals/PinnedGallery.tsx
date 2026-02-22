@@ -6,6 +6,7 @@ import { VisualPanel } from './VisualPanel';
 import { VisualPlaceholder } from './VisualPlaceholder';
 import { GalleryProgress } from './GalleryProgress';
 import { FadeInSection } from '../ui/FadeInSection';
+import { useLightbox } from '../../context/LightboxContext';
 import type { Phase } from '../../types/timeline';
 
 interface PinnedGalleryProps {
@@ -19,6 +20,7 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
   const pinRef = useRef<HTMLDivElement>(null);
   const [imageIndex, setImageIndex] = useState(0);
   const currentIndexRef = useRef(0);
+  const { openByPhase } = useLightbox();
 
   const images = phase.visualSequence ?? [phase.visual];
   const imageCount = images.length;
@@ -58,7 +60,7 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
       <div data-phase-index={phaseIndex} data-phase-gallery={phaseIndex}>
         {images.map((visual, i) => (
           <FadeInSection key={i} className="aspect-[4/3] w-full">
-            <VisualPlaceholder config={visual} />
+            <VisualPlaceholder config={visual} onImageClick={() => openByPhase(phaseIndex, i)} />
           </FadeInSection>
         ))}
         <div className="px-6 py-24">
@@ -98,7 +100,7 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
     >
       {/* Left: visual panel */}
       <div className="bg-seagram-charcoal relative">
-        <VisualPanel phase={phase} visualSubIndex={imageIndex} />
+        <VisualPanel phase={phase} visualSubIndex={imageIndex} onImageClick={(subIndex) => openByPhase(phaseIndex, subIndex)} />
         <GalleryProgress current={imageIndex} total={imageCount} />
       </div>
 
