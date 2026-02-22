@@ -30,10 +30,11 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
       ScrollTrigger.create({
         trigger: pinRef.current,
         start: 'top top',
-        end: `+=${imageCount * window.innerHeight * GALLERY_SCROLL_PER_IMAGE_VH}`,
+        end: () => `+=${imageCount * window.innerHeight * GALLERY_SCROLL_PER_IMAGE_VH}`,
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,
+        invalidateOnRefresh: true,
         onEnter: () => onPhaseEnter(phaseIndex),
         onEnterBack: () => onPhaseEnter(phaseIndex),
         onUpdate: (self) => {
@@ -102,7 +103,7 @@ export function PinnedGallery({ phase, phaseIndex, isDesktop, onPhaseEnter }: Pi
       </div>
 
       {/* Right: text content */}
-      <div className="flex flex-col justify-center overflow-y-auto px-8 py-16 lg:px-12">
+      <div className="flex flex-col justify-center overflow-hidden px-8 py-8 lg:px-12">
         <FadeInSection>
           <span className="text-seagram-bronze mb-4 inline-block font-mono text-sm font-medium tracking-widest uppercase">
             {phase.dateRange}
